@@ -59,6 +59,7 @@
 #define VSF_SYSDEP_HAVE_USERSHELL
 #define VSF_SYSDEP_HAVE_LIBCAP
 #define VSF_SYSDEP_HAVE_UTMPX
+#define VSF_SYSDEP_HAVE_UPDWTMPX
 
 #define __USE_GNU
 #include <utmpx.h>
@@ -163,6 +164,12 @@
 #ifdef __sun
   #define VSF_SYSDEP_HAVE_SOLARIS_SENDFILE
 #endif
+
+
+#if defined(__APPLE__)
+  #undef VSF_SYSDEP_HAVE_UPDWTMPX
+#endif
+ 
 /* END config */
 
 /* PAM support - we include our own dummy version if the system lacks this */
@@ -1213,7 +1220,9 @@ vsf_insert_uwtmp(const struct mystr* p_user_str,
   setutxent();
   (void) pututxline(&s_utent);
   endutxent();
+#ifdef VSF_SYSDEP_HAVE_UPDWTMPX
   updwtmpx(WTMPX_FILE, &s_utent);
+#endif
 }
 
 void
@@ -1232,7 +1241,9 @@ vsf_remove_uwtmp(void)
   (void) pututxline(&s_utent);
   endutxent();
   s_utent.ut_tv.tv_sec = vsf_sysutil_get_time_sec();
+#ifdef VSF_SYSDEP_HAVE_UPDWTMPX
   updwtmpx(WTMPX_FILE, &s_utent);
+#endif
 }
 
 #endif /* !VSF_SYSDEP_HAVE_UTMPX */

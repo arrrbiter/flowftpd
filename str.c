@@ -588,6 +588,20 @@ str_all_space(const struct mystr* p_str)
 }
 
 int
+str_contains_newline(const struct mystr* p_str)
+{
+	unsigned int i;
+	for (i=0; i < p_str->len; i++)
+	{
+		if (vsf_sysutil_isnewline(p_str->p_buf[i]))
+		{
+			return 1;
+		}
+	}
+	return 0;  
+}
+
+int
 str_contains_unprintable(const struct mystr* p_str)
 {
   unsigned int i;

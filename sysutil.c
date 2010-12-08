@@ -952,6 +952,16 @@ vsf_sysutil_isdigit(int the_char)
   return isdigit(the_char);
 }
 
+int
+vsf_sysutil_isnewline(int the_char)
+{
+	unsigned char uc = (unsigned char) the_char;
+	if (uc == 10)
+		return 1;
+    
+	return 0; 
+}
+
 char*
 vsf_sysutil_getcwd(char* p_dest, const unsigned int buf_size)
 {

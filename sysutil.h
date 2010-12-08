@@ -205,6 +205,7 @@ int vsf_sysutil_isspace(int the_char);
 int vsf_sysutil_isprint(int the_char);
 int vsf_sysutil_isalnum(int the_char);
 int vsf_sysutil_isdigit(int the_char);
+int vsf_sysutil_isnewline(int the_char);
 
 /* Socket handling */
 struct vsf_sysutil_sockaddr;

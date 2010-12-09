@@ -737,6 +737,8 @@ handle_retr(struct vsf_session* p_sess, int is_http)
     trans_ret.retval = -2;
   }
   p_sess->transfer_size = trans_ret.transferred;
+  p_sess->crc_file = trans_ret.crc_file;
+  p_sess->crc_block = trans_ret.crc_block;  
   /* Log _after_ the blocking dispose call, so we get transfer times right */
   if (trans_ret.retval == 0)
   {

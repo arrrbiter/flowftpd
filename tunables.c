@@ -87,6 +87,9 @@ int tunable_isolate_network;
 int tunable_ftp_enable;
 int tunable_http_enable;
 
+/* Extensions */
+int tunable_calc_crc32;
+
 unsigned int tunable_accept_timeout;
 unsigned int tunable_connect_timeout;
 unsigned int tunable_local_umask;
@@ -224,7 +227,10 @@ tunables_load_defaults()
   tunable_isolate_network = 1;
   tunable_ftp_enable = 1;
   tunable_http_enable = 0;
-
+  
+  /* Extensions */
+  tunable_calc_crc32 = 0;
+  
   tunable_accept_timeout = 60;
   tunable_connect_timeout = 60;
   tunable_local_umask = 077;

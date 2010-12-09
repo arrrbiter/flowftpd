@@ -68,12 +68,17 @@ int vsf_ftpdataio_post_mark_connect(struct vsf_session* p_sess);
  * retval       - 0 for success, failure otherwise
  *                (-1 = local problem -2 = remote problem)
  * transferred  - number of bytes transferred
+ * crc_file     - CRC32 checksum for the whole file
+ * crc_block    - CRC32 checksum for the first block 
  */
 struct vsf_transfer_ret
 {
   int retval;
   filesize_t transferred;
+  unsigned long crc_file;
+  unsigned long crc_block;  
 };
+
 struct vsf_transfer_ret vsf_ftpdataio_transfer_file(
   struct vsf_session* p_sess,
   int remote_fd, int file_fd, int is_recv, int is_ascii);

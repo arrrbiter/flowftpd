@@ -30,6 +30,7 @@
 #include "ssl.h"
 #include "readwrite.h"
 #include "privsock.h"
+#include "crc32.h"
 
 static void init_data_sock_params(struct vsf_session* p_sess, int sock_fd);
 static filesize_t calc_num_send(int file_fd, filesize_t init_offset);
@@ -455,7 +456,7 @@ do_file_send_rwloop(struct vsf_session* p_sess, int file_fd, int is_ascii)
 {
   static char* p_readbuf;
   static char* p_asciibuf;
-  struct vsf_transfer_ret ret_struct = { 0, 0 };
+  struct vsf_transfer_ret ret_struct = { 0, 0, 0, 0 };
   unsigned int chunk_size = get_chunk_size();
   char* p_writefrom_buf;
   int prev_cr = 0;
@@ -526,7 +527,7 @@ do_file_send_sendfile(struct vsf_session* p_sess, int net_fd, int file_fd,
 {
   int retval;
   unsigned int chunk_size = 0;
-  struct vsf_transfer_ret ret_struct = { 0, 0 };
+  struct vsf_transfer_ret ret_struct = { 0, 0, 0, 0 };
   filesize_t init_file_offset = curr_file_offset;
   filesize_t bytes_sent;
   if (p_sess->bw_rate_max)
@@ -580,9 +581,10 @@ do_file_recv(struct vsf_session* p_sess, int file_fd, int is_ascii)
 {
   static char* p_recvbuf;
   unsigned int num_to_write;
-  struct vsf_transfer_ret ret_struct = { 0, 0 };
+  struct vsf_transfer_ret ret_struct = { 0, 0, 0, 0 };
   unsigned int chunk_size = get_chunk_size();
   int prev_cr = 0;
+  int block = 0;  
   if (p_recvbuf == 0)
   {
     /* Now that we do ASCII conversion properly, the plus one is to cater for
@@ -619,7 +621,14 @@ do_file_recv(struct vsf_session* p_sess, int file_fd, int is_ascii)
       num_to_write = ret.stored;
       prev_cr = ret.last_was_cr;
       p_writebuf = ret.p_buf;
-    }
+    }    
+    if (tunable_calc_crc32)
+    {
+      /* Calculate the CRC32 checksum for the whole file and the first block */
+      ret_struct.crc_file = vsf_crc32_calc(ret_struct.crc_file, p_writebuf, num_to_write);
+      if (block == 0)
+        ret_struct.crc_block = ret_struct.crc_file;
+    }    
     retval = vsf_sysutil_write_loop(file_fd, p_writebuf, num_to_write);
     if (vsf_sysutil_retval_is_error(retval) ||
         (unsigned int) retval != num_to_write)
@@ -627,6 +636,7 @@ do_file_recv(struct vsf_session* p_sess, int file_fd, int is_ascii)
       ret_struct.retval = -1;
       return ret_struct;
     }
+    block++;
   }
 }
 

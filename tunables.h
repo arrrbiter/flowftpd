@@ -88,6 +88,9 @@ extern int tunable_isolate_network;           /* Use CLONE_NEWNET */
 extern int tunable_ftp_enable;                /* Allow FTP protocol */
 extern int tunable_http_enable;               /* Allow HTTP protocol */
 
+/* Extensions */
+extern int tunable_calc_crc32;                /* Calc CRC32 checksum */
+
 /* Integer/numeric defines */
 extern unsigned int tunable_accept_timeout;
 extern unsigned int tunable_connect_timeout;

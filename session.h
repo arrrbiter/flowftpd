@@ -97,6 +97,9 @@ struct vsf_session
   int ssl_slave_fd;
   int ssl_consumer_fd;
   unsigned int login_fails;
+  
+  unsigned long crc_file;
+  unsigned long crc_block;  
 };
 
 #endif /* VSF_SESSION_H */

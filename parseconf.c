@@ -105,6 +105,7 @@ parseconf_bool_array[] =
   { "isolate_network", &tunable_isolate_network },
   { "ftp_enable", &tunable_ftp_enable },
   { "http_enable", &tunable_http_enable },
+  { "calc_crc32", &tunable_calc_crc32 },
   { 0, 0 }
 };
 

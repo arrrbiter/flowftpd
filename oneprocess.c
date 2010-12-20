@@ -119,6 +119,10 @@ vsf_one_process_login(struct vsf_session* p_sess,
       p_sess->is_anonymous = 1;
       process_post_login(p_sess);
       break;
+    case kVSFLoginReal:
+      p_sess->is_anonymous = 0;
+      process_post_login(p_sess);
+      break;
     default:
       bug("bad state in vsf_one_process_login");
       break;

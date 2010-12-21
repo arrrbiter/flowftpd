@@ -98,6 +98,12 @@ struct vsf_session
   int ssl_consumer_fd;
   unsigned int login_fails;
   
+  /* The SSCN (set secured client negotiation) command is used to configure
+   * which site act as a SSL client during an encrypted FXP transfer.
+   * If enabled SSL_connect() is used instead of SSL_accept().
+   */
+  int is_ssl_client;
+  
   unsigned long crc_file;
   unsigned long crc_block;  
 };

@@ -15,6 +15,7 @@
 #define FTP_PBSZOK            200
 #define FTP_PROTOK            200
 #define FTP_OPTSOK            200
+#define FTP_SSCNOK            200
 #define FTP_ALLOOK            202
 #define FTP_FEAT              211
 #define FTP_STATOK            211
@@ -61,10 +62,12 @@
 #define FTP_NEEDRNFR          503
 #define FTP_BADPBSZ           503
 #define FTP_BADPROT           503
+#define FTP_BADSSCN           503
 #define FTP_BADSTRU           504
 #define FTP_BADMODE           504
 #define FTP_BADAUTH           504
 #define FTP_NOSUCHPROT        504
+#define FTP_NOSUCHSSCN        504
 #define FTP_NEEDENCRYPT       522
 #define FTP_EPSVBAD           522
 #define FTP_DATATLSBAD        522

@@ -19,6 +19,7 @@ int ssl_read_into_str(struct vsf_session* p_sess,
                       struct mystr* p_str);
 void ssl_init(struct vsf_session* p_sess);
 int ssl_accept(struct vsf_session* p_sess, int fd);
+int ssl_connect(struct vsf_session* p_sess, int fd);
 int ssl_data_close(struct vsf_session* p_sess);
 void ssl_comm_channel_init(struct vsf_session* p_sess);
 void ssl_comm_channel_set_consumer_context(struct vsf_session* p_sess);
@@ -26,8 +27,8 @@ void ssl_comm_channel_set_producer_context(struct vsf_session* p_sess);
 void handle_auth(struct vsf_session* p_sess);
 void handle_pbsz(struct vsf_session* p_sess);
 void handle_prot(struct vsf_session* p_sess);
+void handle_sscn(struct vsf_session* p_sess);
 void ssl_control_handshake(struct vsf_session* p_sess);
 void ssl_add_entropy(struct vsf_session* p_sess);
 
 #endif /* VSF_SSL_H */
-

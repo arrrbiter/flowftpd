@@ -156,7 +156,7 @@ vsf_ftpdataio_post_mark_connect(struct vsf_session* p_sess)
   }
   if (!p_sess->ssl_slave_active)
   {
-    ret = ssl_accept(p_sess, p_sess->data_fd);
+    ret = ssl_handshake(p_sess, p_sess->data_fd);
   }
   else
   {

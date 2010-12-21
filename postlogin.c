@@ -32,6 +32,7 @@
 static void handle_pwd(struct vsf_session* p_sess);
 static void handle_cwd(struct vsf_session* p_sess);
 static void handle_pasv(struct vsf_session* p_sess, int is_epsv);
+static void handle_cpsv(struct vsf_session* p_sess);
 static void handle_retr(struct vsf_session* p_sess, int is_http);
 static void handle_cdup(struct vsf_session* p_sess);
 static void handle_list(struct vsf_session* p_sess);
@@ -208,6 +209,11 @@ process_post_login(struct vsf_session* p_sess)
              str_equal_text(&p_sess->ftp_cmd_str, "EPSV"))
     {
       handle_pasv(p_sess, 1);
+    }
+    else if (tunable_pasv_enable && tunable_ssl_enable &&
+             str_equal_text(&p_sess->ftp_cmd_str, "CPSV"))
+    {
+      handle_cpsv(p_sess);
     }
     else if (tunable_download_enable &&
              str_equal_text(&p_sess->ftp_cmd_str, "RETR"))
@@ -391,6 +397,10 @@ process_post_login(struct vsf_session* p_sess)
     else if (tunable_ssl_enable && str_equal_text(&p_sess->ftp_cmd_str, "PROT"))
     {
       handle_prot(p_sess);
+    }
+    else if (tunable_ssl_enable && str_equal_text(&p_sess->ftp_cmd_str, "SSCN"))
+    {
+      handle_sscn(p_sess);
     }
     else if (str_equal_text(&p_sess->ftp_cmd_str, "USER"))
     {
@@ -629,6 +639,13 @@ handle_pasv(struct vsf_session* p_sess, int is_epsv)
 }
 
 static void
+handle_cpsv(struct vsf_session* p_sess)
+{
+  p_sess->is_ssl_client = 1;
+  handle_pasv(p_sess, 0);
+}
+
+static void
 handle_retr(struct vsf_session* p_sess, int is_http)
 {
   static struct mystr s_mark_str;
@@ -863,8 +880,15 @@ handle_dir_common(struct vsf_session* p_sess, int full_details, int stat_cmd)
   }
   else
   {
+    /* Remember the current value */
+    int is_ssl_client = p_sess->is_ssl_client;
+    /* Directory listing is never done in SSL client mode */
+    p_sess->is_ssl_client = 0;
+
     int remote_fd = get_remote_transfer_fd(
       p_sess, "Here comes the directory listing.");
+    /* Restore the value */
+    p_sess->is_ssl_client = is_ssl_client;
     if (vsf_sysutil_retval_is_error(remote_fd))
     {
       goto dir_close_out;

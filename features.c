@@ -38,6 +38,11 @@ handle_feat(struct vsf_session* p_sess)
   {
     vsf_cmdio_write_raw(p_sess, " PBSZ\r\n");
     vsf_cmdio_write_raw(p_sess, " PROT\r\n");
+    if (tunable_pasv_enable)
+    {
+      vsf_cmdio_write_raw(p_sess, " SSCN\r\n");
+      vsf_cmdio_write_raw(p_sess, " CPSV\r\n");
+    }
   }
   vsf_cmdio_write_raw(p_sess, " REST STREAM\r\n");
   vsf_cmdio_write_raw(p_sess, " SIZE\r\n");
@@ -45,4 +50,3 @@ handle_feat(struct vsf_session* p_sess)
   vsf_cmdio_write_raw(p_sess, " UTF8\r\n");
   vsf_cmdio_write(p_sess, FTP_FEAT, "End");
 }
-

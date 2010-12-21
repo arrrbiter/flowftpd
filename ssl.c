@@ -60,7 +60,7 @@ ssl_init(struct vsf_session* p_sess)
     long options;
     int verify_option = 0;
     SSL_library_init();
-    p_ctx = SSL_CTX_new(SSLv23_server_method());
+    p_ctx = SSL_CTX_new(SSLv23_method());
     if (p_ctx == NULL)
     {
       die("SSL: could not allocate SSL context");
@@ -238,6 +238,35 @@ handle_prot(struct vsf_session* p_sess)
   else
   {
     vsf_cmdio_write(p_sess, FTP_NOSUCHPROT, "PROT not recognized.");
+  }
+}
+
+/* SSCN (set secured client negotiation) */
+void
+handle_sscn(struct vsf_session* p_sess)
+{
+  str_upper(&p_sess->ftp_arg_str);
+  if (!p_sess->control_use_ssl)
+  {
+    vsf_cmdio_write(p_sess, FTP_BADSSCN, "SSCN needs a secure connection.");
+  }
+  else if (str_equal_text(&p_sess->ftp_arg_str, "ON"))
+  {
+    /* SSL mode: connect to the remote host */
+    p_sess->is_ssl_client = 1;
+    vsf_cmdio_write(p_sess, FTP_SSCNOK, "SSCN: Client method");
+  }
+  else if (str_equal_text(&p_sess->ftp_arg_str, "OFF"))
+  {
+    /* SSL mode: accept connection */
+    p_sess->is_ssl_client = 0;
+    vsf_cmdio_write(p_sess, FTP_SSCNOK, "SSCN: Server method");
+  }
+  else if (str_equal_text(&p_sess->ftp_arg_str, ""))
+  {
+    vsf_cmdio_write(p_sess, FTP_SSCNOK, p_sess->is_ssl_client ?
+        "SSCN: Client method" :
+        "SSCN: Server method");
   }
 }
 
@@ -420,7 +449,7 @@ ssl_data_close(struct vsf_session* p_sess)
 }
 
 int
-ssl_accept(struct vsf_session* p_sess, int fd)
+ssl_handshake(struct vsf_session* p_sess, int fd)
 {
   /* SECURITY: data SSL connections don't have any auth on them as part of the
    * protocol. If a client sends an unfortunately optional client cert then
@@ -432,6 +461,7 @@ ssl_accept(struct vsf_session* p_sess, int fd)
   {
     die("p_data_ssl should be NULL.");
   }
+  /* Initiate the SSL connection by either calling accept or connect */
   p_ssl = get_ssl(p_sess, fd);
   if (p_ssl == NULL)
   {
@@ -535,19 +565,33 @@ get_ssl(struct vsf_session* p_sess, int fd)
     SSL_free(p_ssl);
     return NULL;
   }
-  if (SSL_accept(p_ssl) != 1)
+
+  int retval;
+  if (p_sess->is_ssl_client)
+  {
+    /* Connect to a remote FXP server in SSL client mode */
+    retval = SSL_connect(p_ssl);
+    str_alloc_text(&debug_str, "SSL_connect failed: ");
+  }
+  else
+  {
+    /* Accept a SSL connection from a client or remote FXP server */
+    retval = SSL_accept(p_ssl);
+    str_alloc_text(&debug_str, "SSL_accept failed: ");
+  }
+
+  if (retval != 1)
   {
     const char* p_err = get_ssl_error();
     if (tunable_debug_ssl)
     {
-      str_alloc_text(&debug_str, "SSL_accept failed: ");
       str_append_text(&debug_str, p_err);
       vsf_log_line(p_sess, kVSFLogEntryDebug, &debug_str);
     }
     /* The RFC is quite clear that we can just close the control channel
      * here.
      */
-    die(p_err);
+     die(p_err);
   }
   if (tunable_debug_ssl)
   {
@@ -724,6 +768,12 @@ handle_prot(struct vsf_session* p_sess)
   (void) p_sess;
 }
 
+void
+handle_sscn(struct vsf_session* p_sess)
+{
+  (void) p_sess;
+}
+
 int
 ssl_read(struct vsf_session* p_sess, void* p_ssl, char* p_buf, unsigned int len)
 {
@@ -762,7 +812,7 @@ ssl_write_str(void* p_ssl, const struct mystr* p_str)
 }
 
 int
-ssl_accept(struct vsf_session* p_sess, int fd)
+ssl_handshake(struct vsf_session* p_sess, int fd)
 {
   (void) p_sess;
   (void) fd;

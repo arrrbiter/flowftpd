@@ -56,8 +56,8 @@ ssl_slave(struct vsf_session* p_sess)
       {
         bug("state not clean");
       }
-      p_sess->data_fd = priv_sock_recv_fd(p_sess->ssl_slave_fd);
-      ret = ssl_accept(p_sess, p_sess->data_fd);
+      p_sess->data_fd = priv_sock_recv_fd(p_sess->ssl_slave_fd);      
+      ret = ssl_handshake(p_sess, p_sess->data_fd);
       if (ret == 1)
       {
         result = PRIV_SOCK_RESULT_OK;

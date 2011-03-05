@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="69">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <df name="flowftpd" root=".">
+      <df name="dummyinc" kind="SOURCE_LOGICAL_FOLDER">
+        <df name="openssl" kind="SOURCE_LOGICAL_FOLDER">
+          <in>ssl.h</in>
+        </df>
+        <df name="security" kind="SOURCE_LOGICAL_FOLDER">
+          <in>pam_appl.h</in>
+        </df>
+        <df name="sys" kind="SOURCE_LOGICAL_FOLDER">
+          <in>capability.h</in>
+          <in>prctl.h</in>
+          <in>sendfile.h</in>
+        </df>
+        <in>crypt.h</in>
+        <in>shadow.h</in>
+        <in>utmpx.h</in>
+      </df>
+      <df name="EXAMPLE" kind="SOURCE_LOGICAL_FOLDER">
+        <df name="INTERNET_SITE" kind="SOURCE_LOGICAL_FOLDER">
+        </df>
+        <df name="INTERNET_SITE_NOINETD" kind="SOURCE_LOGICAL_FOLDER">
+        </df>
+        <df name="PER_IP_CONFIG" kind="SOURCE_LOGICAL_FOLDER">
+        </df>
+        <df name="VIRTUAL_HOSTS" kind="SOURCE_LOGICAL_FOLDER">
+        </df>
+        <df name="VIRTUAL_USERS" kind="SOURCE_LOGICAL_FOLDER">
+        </df>
+        <df name="VIRTUAL_USERS_2" kind="SOURCE_LOGICAL_FOLDER">
+        </df>
+      </df>
+      <df name="port" kind="SOURCE_LOGICAL_FOLDER">
+        <in>aix_bogons.h</in>
+        <in>cmsg_extras.h</in>
+        <in>dirfd_extras.h</in>
+        <in>hpux_bogons.h</in>
+        <in>irix_bogons.h</in>
+        <in>porting_junk.h</in>
+        <in>solaris_bogons.h</in>
+        <in>tru64_bogons.h</in>
+      </df>
+      <df name="private">
+      </df>
+      <df name="RedHat" kind="SOURCE_LOGICAL_FOLDER">
+      </df>
+      <df name="SECURITY" kind="SOURCE_LOGICAL_FOLDER">
+      </df>
+      <df name="xinetd.d" kind="SOURCE_LOGICAL_FOLDER">
+      </df>
+      <in>access.c</in>
+      <in>access.h</in>
+      <in>ascii.c</in>
+      <in>ascii.h</in>
+      <in>banner.c</in>
+      <in>banner.h</in>
+      <in>builddefs.h</in>
+      <in>crc32.c</in>
+      <in>crc32.h</in>
+      <in>defs.h</in>
+      <in>features.c</in>
+      <in>features.h</in>
+      <in>filesize.h</in>
+      <in>filestr.c</in>
+      <in>filestr.h</in>
+      <in>ftpcmdio.c</in>
+      <in>ftpcmdio.h</in>
+      <in>ftpcodes.h</in>
+      <in>ftpdataio.c</in>
+      <in>ftpdataio.h</in>
+      <in>ftppolicy.c</in>
+      <in>ftppolicy.h</in>
+      <in>hash.c</in>
+      <in>hash.h</in>
+      <in>ipaddrparse.c</in>
+      <in>ipaddrparse.h</in>
+      <in>logging.c</in>
+      <in>logging.h</in>
+      <in>ls.c</in>
+      <in>ls.h</in>
+      <in>main.c</in>
+      <in>netstr.c</in>
+      <in>netstr.h</in>
+      <in>oneprocess.c</in>
+      <in>oneprocess.h</in>
+      <in>opts.c</in>
+      <in>opts.h</in>
+      <in>parseconf.c</in>
+      <in>parseconf.h</in>
+      <in>postlogin.c</in>
+      <in>postlogin.h</in>
+      <in>postprivparent.c</in>
+      <in>postprivparent.h</in>
+      <in>prelogin.c</in>
+      <in>prelogin.h</in>
+      <in>privops.c</in>
+      <in>privops.h</in>
+      <in>privsock.c</in>
+      <in>privsock.h</in>
+      <in>ptracesandbox.c</in>
+      <in>ptracesandbox.h</in>
+      <in>readwrite.c</in>
+      <in>readwrite.h</in>
+      <in>secbuf.c</in>
+      <in>secbuf.h</in>
+      <in>secutil.c</in>
+      <in>secutil.h</in>
+      <in>session.h</in>
+      <in>ssl.c</in>
+      <in>ssl.h</in>
+      <in>sslslave.c</in>
+      <in>sslslave.h</in>
+      <in>standalone.c</in>
+      <in>standalone.h</in>
+      <in>str.c</in>
+      <in>str.h</in>
+      <in>strlist.c</in>
+      <in>strlist.h</in>
+      <in>sysdeputil.c</in>
+      <in>sysdeputil.h</in>
+      <in>sysstr.c</in>
+      <in>sysstr.h</in>
+      <in>sysutil.c</in>
+      <in>sysutil.h</in>
+      <in>tcpwrap.c</in>
+      <in>tcpwrap.h</in>
+      <in>tunables.c</in>
+      <in>tunables.h</in>
+      <in>twoprocess.c</in>
+      <in>twoprocess.h</in>
+      <in>utility.c</in>
+      <in>utility.h</in>
+      <in>vsftpver.h</in>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile-flowftpd.mk</itemPath>
+      <itemPath>makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile-flowftpd.mk</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>4</platform>
+      </toolsSet>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>$(MAKE) -f Makefile</buildCommand>
+          <cleanCommand>$(MAKE) -f Makefile clean</cleanCommand>
+          <executablePath>flowftpd</executablePath>
+        </makeTool>
+      </makefileType>
+      <item path="dummyinc/crypt.h" ex="true" tool="3">
+      </item>
+      <item path="dummyinc/openssl/ssl.h" ex="true" tool="3">
+      </item>
+      <item path="dummyinc/security/pam_appl.h" ex="true" tool="3">
+      </item>
+      <item path="dummyinc/shadow.h" ex="true" tool="3">
+      </item>
+      <item path="dummyinc/sys/capability.h" ex="true" tool="3">
+      </item>
+      <item path="dummyinc/sys/prctl.h" ex="true" tool="3">
+      </item>
+      <item path="dummyinc/sys/sendfile.h" ex="true" tool="3">
+      </item>
+      <item path="dummyinc/utmpx.h" ex="true" tool="3">
+      </item>
+      <item path="port/aix_bogons.h" ex="true" tool="3">
+      </item>
+      <item path="port/dirfd_extras.h" ex="true" tool="3">
+      </item>
+      <item path="port/hpux_bogons.h" ex="true" tool="3">
+      </item>
+      <item path="port/irix_bogons.h" ex="true" tool="3">
+      </item>
+      <item path="port/solaris_bogons.h" ex="true" tool="3">
+      </item>
+      <item path="port/tru64_bogons.h" ex="true" tool="3">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

@@ -28,6 +28,7 @@ void handle_auth(struct vsf_session* p_sess);
 void handle_pbsz(struct vsf_session* p_sess);
 void handle_prot(struct vsf_session* p_sess);
 void handle_sscn(struct vsf_session* p_sess);
+int ssl_handshake(struct vsf_session* p_sess, int fd);
 void ssl_control_handshake(struct vsf_session* p_sess);
 void ssl_add_entropy(struct vsf_session* p_sess);
 

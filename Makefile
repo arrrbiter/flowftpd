@@ -21,26 +21,26 @@ OBJS	=	main.o utility.o prelogin.o ftpcmdio.o postlogin.o privsock.o \
 .c.o:
 	$(CC) -c $*.c $(CFLAGS) $(IFLAGS)
 
-vsftpd: $(OBJS) 
-	$(CC) -o vsftpd $(OBJS) $(LINK) $(LIBS) $(LDFLAGS)
+flowftpd: $(OBJS)
+	$(CC) -o flowftpd $(OBJS) $(LINK) $(LIBS) $(LDFLAGS)
 
 install:
 	if [ -x /usr/local/sbin ]; then \
-		$(INSTALL) -m 755 vsftpd /usr/local/sbin/vsftpd; \
+		$(INSTALL) -m 755 flowftpd /usr/local/sbin/flowftpd; \
 	else \
-		$(INSTALL) -m 755 vsftpd /usr/sbin/vsftpd; fi
+		$(INSTALL) -m 755 flowftpd /usr/sbin/flowftpd; fi
 	if [ -x /usr/local/man ]; then \
-		$(INSTALL) -m 644 vsftpd.8 /usr/local/man/man8/vsftpd.8; \
-		$(INSTALL) -m 644 vsftpd.conf.5 /usr/local/man/man5/vsftpd.conf.5; \
+		$(INSTALL) -m 644 flowftpd.8 /usr/local/man/man8/flowftpd.8; \
+		$(INSTALL) -m 644 flowftpd.conf.5 /usr/local/man/man5/flowftpd.conf.5; \
 	elif [ -x /usr/share/man ]; then \
-		$(INSTALL) -m 644 vsftpd.8 /usr/share/man/man8/vsftpd.8; \
-		$(INSTALL) -m 644 vsftpd.conf.5 /usr/share/man/man5/vsftpd.conf.5; \
+		$(INSTALL) -m 644 flowftpd.8 /usr/share/man/man8/flowftpd.8; \
+		$(INSTALL) -m 644 flowftpd.conf.5 /usr/share/man/man5/flowftpd.conf.5; \
 	else \
-		$(INSTALL) -m 644 vsftpd.8 /usr/man/man8/vsftpd.8; \
-		$(INSTALL) -m 644 vsftpd.conf.5 /usr/man/man5/vsftpd.conf.5; fi
+		$(INSTALL) -m 644 flowftpd.8 /usr/man/man8/flowftpd.8; \
+		$(INSTALL) -m 644 flowftpd.conf.5 /usr/man/man5/flowftpd.conf.5; fi
 	if [ -x /etc/xinetd.d ]; then \
-		$(INSTALL) -m 644 xinetd.d/vsftpd /etc/xinetd.d/vsftpd; fi
+		$(INSTALL) -m 644 xinetd.d/flowftpd /etc/xinetd.d/flowftpd; fi
 
 clean:
-	rm -f *.o *.swp vsftpd
+	rm -f *.o *.swp flowftpd
 

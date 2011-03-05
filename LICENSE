@@ -1,5 +1,7 @@
 See "COPYING".
 
+flowftpd is a fork of vsftpd and licensed under version 2 of the GNU GPL.
+
 vsftpd is licensed under version 2 of the GNU GPL.
 As copyright holder, I give permission for vsftpd to be linked to the OpenSSL
 libraries. This includes permission for vsftpd binaries to be distributed

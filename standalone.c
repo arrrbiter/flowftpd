@@ -18,6 +18,7 @@
 #include "hash.h"
 #include "str.h"
 #include "ipaddrparse.h"
+#include "vsftpver.h"
 
 static unsigned int s_children;
 static struct hash* s_p_ip_count_hash;
@@ -42,7 +43,7 @@ vsf_standalone_main(void)
   s_ipaddr_size = vsf_sysutil_get_ipaddr_size();
   if (tunable_listen && tunable_listen_ipv6)
   {
-    die("run two copies of vsftpd for IPv4 and IPv6");
+    die("run two copies of " VSF_PROJECT " for IPv4 and IPv6");
   }
   if (tunable_background)
   {

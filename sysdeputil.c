@@ -15,6 +15,7 @@
 #include "defs.h"
 #include "tunables.h"
 #include "builddefs.h"
+#include "vsftpver.h"
 
 /* For Linux, this adds nothing :-) */
 #include "port/porting_junk.h"
@@ -330,8 +331,10 @@ vsf_sysdep_check_auth(struct mystr* p_user_str,
                       const struct mystr* p_remote_host)
 {
   int retval;
+#ifdef PAM_USER
   pam_item_t item;
   const char* pam_user_name = 0;
+#endif
   struct pam_conv the_conv =
   {
     &pam_conv_func,
@@ -900,7 +903,7 @@ vsf_sysutil_setproctitle_internal(const char* p_buf)
 {
   struct mystr proctitle_str = INIT_MYSTR;
   union pstun p;
-  str_alloc_text(&proctitle_str, "vsftpd: ");
+  str_alloc_text(&proctitle_str, VSF_PROJECT ": ");
   str_append_text(&proctitle_str, p_buf);
   p.pst_command = str_getbuf(&proctitle_str);
   pstat(PSTAT_SETCMD, p, 0, 0, 0);
@@ -954,7 +957,7 @@ vsf_sysutil_setproctitle_internal(const char* p_buf)
   {
     return;
   }
-  str_alloc_text(&proctitle_str, "vsftpd: ");
+  str_alloc_text(&proctitle_str, VSF_PROJECT ": ");
   str_append_text(&proctitle_str, p_buf);
   to_copy = str_getlen(&proctitle_str);
   if (to_copy > s_proctitle_space - 1)
@@ -1198,7 +1201,7 @@ vsf_insert_uwtmp(const struct mystr* p_user_str,
   }
   {
     struct mystr line_str = INIT_MYSTR;
-    str_alloc_text(&line_str, "vsftpd:");
+    str_alloc_text(&line_str, VSF_PROJECT ":");
     str_append_ulong(&line_str, vsf_sysutil_getpid());
     if (str_getlen(&line_str) >= sizeof(s_utent.ut_line))
     {

@@ -1,33 +1,33 @@
 INSTALL
 =======
 
-This file details how to build and install / run vsftpd from the vsftpd
+This file details how to build and install / run flowftpd from the flowftpd
 distribution .tar.gz file.
 
-Step 1) Build vsftpd.
+Step 1) Build flowftpd.
 
-Switch to the directory created when you unpacked the vsftpd .tar.gz file.
+Switch to the directory created when you unpacked the flowftpd .tar.gz file.
 e.g.:
 
-cd vsftpd-1.1.2
+cd flowftpd-1.1.2
 
 edit "builddefs.h" to handle compile-time settings (tcp_wrappers build,
 etc).
 
 Just type "make" (and mail me to fix it if it doesn't build ;-).
-This should produce you a vsftpd binary. You can test for this, e.g.:
+This should produce you a flowftpd binary. You can test for this, e.g.:
 
-[chris@localhost vsftpd]$ ls -l vsftpd
--rwxrwxr-x    1 chris    chris       61748 Sep 27 00:26 vsftpd
+[arrrbiter@localhost flowftpd]$ ls -l flowftpd
+-rwxrwxr-x    1 arrrbiter    arrrbiter       61748 Sep 27 00:26 flowftpd
 
-Step 2) Satisfy vsftpd pre-requisites
-2a) vsftpd needs the user "nobody" in the default configuration. Add this
+Step 2) Satisfy flowftpd pre-requisites
+2a) flowftpd needs the user "nobody" in the default configuration. Add this
 user in case it does not already exist. e.g.:
 
 [root@localhost root]# useradd nobody
 useradd: user nobody exists
 
-2b) vsftpd needs the (empty) directory /usr/share/empty in the default
+2b) flowftpd needs the (empty) directory /usr/share/empty in the default
 configuration. Add this directory in case it does not already exist. e.g.:
 
 [root@localhost root]# mkdir /usr/share/empty/
@@ -45,44 +45,44 @@ have one:
 [root@localhost root]# chown root.root /var/ftp
 [root@localhost root]# chmod og-w /var/ftp
 
-Step 3) Install vsftpd config file, executable, man page, etc.
+Step 3) Install flowftpd config file, executable, man page, etc.
 
 Running "make install" will try to copy the binary, man pages, etc. to
 somewhere sensible.
 Or you might want to copy these things by hand, e.g.:
-cp vsftpd /usr/local/sbin/vsftpd
-cp vsftpd.conf.5 /usr/local/man/man5
-cp vsftpd.8 /usr/local/man/man8
+cp flowftpd /usr/local/sbin/flowftpd
+cp flowftpd.conf.5 /usr/local/man/man5
+cp flowftpd.8 /usr/local/man/man8
 
 "make install" doesn't copy the sample config file. It is recommended you
 do this:
-cp vsftpd.conf /etc
+cp flowftpd.conf /etc
 
 Step 4) Smoke test (without an inetd).
 
-vsftpd can run standalone or via an inetd (such as inetd or xinetd). You will
-typically get more control running vsftpd from an inetd. But first we will run
+flowftpd can run standalone or via an inetd (such as inetd or xinetd). You will
+typically get more control running flowftpd from an inetd. But first we will run
 it without, so we can check things are going well so far.
-Edit /etc/vsftpd.conf, and add this line at the bottom:
+Edit /etc/flowftpd.conf, and add this line at the bottom:
 
 listen=YES
 
-This tells vsftpd it will NOT be running from inetd.
+This tells flowftpd it will NOT be running from inetd.
 Right, now let's try and run it!
 Log in as root.
-Make sure you are not running other FTP servers (or vsftpd will not be able
+Make sure you are not running other FTP servers (or flowftpd will not be able
 to use the FTP port, 21).
 Run the binary from wherever you put it, e.g.:
 
-[root@localhost root]# /usr/local/sbin/vsftpd &
+[root@localhost root]# /usr/local/sbin/flowftpd &
 [1] 2104
 
 If all is well, you can now connect! e.g.:
 
-[chris@localhost chris]$ ftp localhost
+[arrrbiter@localhost arrrbiter]$ ftp localhost
 Connected to localhost (127.0.0.1).
-220 (vsFTPd 1.1.1)
-Name (localhost:chris): ftp
+220 (flowftpd 0.1)
+Name (localhost:arrrbiter): ftp
 331 Please specify the password.
 Password:
 230 Login successful. Have fun.
@@ -103,12 +103,12 @@ recommended)
 
 You may want to run the binary from an inetd of some kind, because this can
 give you extra features - e.g. xinetd has a lot of settings. (Note that
-vsftpd's inbuilt listener covers most of the more useful xinetd settings).
+flowftpd's inbuilt listener covers most of the more useful xinetd settings).
 
 5a) If using standard "inetd", you will need to edit /etc/inetd.conf, and add
 a line such as:
 
-ftp stream tcp nowait root /usr/sbin/tcpd /usr/local/sbin/vsftpd
+ftp stream tcp nowait root /usr/sbin/tcpd /usr/local/sbin/flowftpd
 
 (Make sure to remove or comment out any existing ftp service lines. If you
 don't have tcp_wrappers installed, or don't want to use them, take out the
@@ -124,22 +124,22 @@ the more powerful xinetd features.
 
 Step 6) Set up PAM for local logins (optional)
 
-If you are running vsftpd on a PAM enabled machine, you will need to have a
+If you are running flowftpd on a PAM enabled machine, you will need to have a
 /etc/pam.d/ftp file present, otherwise non-anonymous logins will fail. [NOTE -
 if you have an older version of PAM, that file might be /etc/pam.conf]
 
 For a standard setup, you can just copy a provided example file:
-cp RedHat/vsftpd.pam /etc/pam.d/ftp
+cp RedHat/flowftpd.pam /etc/pam.d/ftp
 
 
 Step 7) Customize your configuration
 
 As well as the above three pre-requisites, you are recommended to install a
-config file. The default location for the config file is /etc/vsftpd.conf.
-There is a sample vsftpd.conf in the distribution tarball. You probably want
-to copy that to /etc/vsftpd.conf as a basis for modification, i.e.:
+config file. The default location for the config file is /etc/flowftpd.conf.
+There is a sample flowftpd.conf in the distribution tarball. You probably want
+to copy that to /etc/flowftpd.conf as a basis for modification, i.e.:
 
-cp vsftpd.conf /etc
+cp flowftpd.conf /etc
 
 The default configuration allows neither local user logins nor anonymous
 uploads. You may wish to change these defaults.

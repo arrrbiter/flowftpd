@@ -16,6 +16,7 @@
 #include "utility.h"
 #include "tunables.h"
 #include "sysdeputil.h"
+#include "vsftpver.h"
 
 /* Activate 64-bit file support on Linux/32bit plus others */
 #define _FILE_OFFSET_BITS 64
@@ -2687,7 +2688,7 @@ vsf_sysutil_openlog(int force)
 #ifdef LOG_FTP
   facility = LOG_FTP;
 #endif
-  openlog("vsftpd", option, facility);
+  openlog(VSF_PROJECT, option, facility);
 }
 
 void

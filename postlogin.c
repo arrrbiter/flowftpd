@@ -1862,7 +1862,7 @@ handle_stat(struct vsf_session* p_sess)
     vsf_cmdio_write_raw(p_sess, "\r\n");
   }
   vsf_cmdio_write_raw(p_sess,
-    "     vsFTPd " VSF_VERSION " - secure, fast, stable\r\n");
+    "     flowftpd " VSF_VERSION " - secure, fast, stable\r\n");
   vsf_cmdio_write(p_sess, FTP_STATOK, "End of status");
 }
 
@@ -1967,7 +1967,7 @@ handle_http(struct vsf_session* p_sess)
   while (!str_isempty(&p_sess->ftp_cmd_str) ||
          !str_isempty(&p_sess->ftp_arg_str));
   vsf_cmdio_write_raw(p_sess, "HTTP/1.1 200 OK\r\n");
-  vsf_cmdio_write_raw(p_sess, "Server: vsftpd\r\n");
+  vsf_cmdio_write_raw(p_sess, "Server: " VSF_PROJECT "\r\n");
   vsf_cmdio_write_raw(p_sess, "Connection: close\r\n");
   vsf_cmdio_write_raw(p_sess, "X-Frame-Options: SAMEORIGIN\r\n");
   vsf_cmdio_write_raw(p_sess, "X-Content-Type-Options: nosniff\r\n");

@@ -21,6 +21,7 @@
 #include "utility.h"
 #include "builddefs.h"
 #include "logging.h"
+#include "vsftpver.h"
 
 #ifdef VSF_BUILD_SSL
 
@@ -147,7 +148,7 @@ ssl_init(struct vsf_session* p_sess)
       }
     }
     {
-      static const char* p_ctx_id = "vsftpd";
+      static const char* p_ctx_id = VSF_PROJECT;
       SSL_CTX_set_session_id_context(p_ctx, (void*) p_ctx_id,
                                      vsf_sysutil_strlen(p_ctx_id));
     }

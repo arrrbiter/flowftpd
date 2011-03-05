@@ -1,3 +1,11 @@
+This is flowftpd, version 0.1 - a fork of vsftpd 2.3
+
+This intention of this fork is to add some advanced features to vsftpd which
+go beyond the scope of vsftpd which is primarily slanted toward security and
+anonymous download only servers.  
+
+--------------------------------------------------------------------------------
+
 This is vsftpd, version 2.3.2
 Author: Chris Evans
 Contact: scarybeasts@gmail.com

@@ -64,9 +64,11 @@ main(int argc, const char* argv[])
     /* Home directory */
     INIT_MYSTR,
     /* Secure connection state */
-    0, 0, 0, 0, 0, INIT_MYSTR, 0, -1, -1,
+    0, 0, 0, 0, 0, INIT_MYSTR, 0, -1, -1, 0,
     /* Login fails */
-    0
+    0,
+    /* CRC32 */
+    0, 0
   };
   int config_loaded = 0;
   int i;
@@ -84,7 +86,7 @@ main(int argc, const char* argv[])
    */
   if (argc == 0)
   {
-    die("vsftpd: missing argv[0]");
+    die(VSF_PROJECT ": missing argv[0]");
   }
   for (i = 1; i < argc; ++i)
   {
@@ -98,7 +100,7 @@ main(int argc, const char* argv[])
     {
       if (p_arg[1] == 'v')
       {
-        vsf_exit("vsftpd: version " VSF_VERSION "\n");
+        vsf_exit("flowftpd: version " VSF_VERSION "\n");
       }
       else if (p_arg[1] == 'o')
       {
@@ -253,7 +255,7 @@ die_unless_privileged(void)
 {
   if (!vsf_sysutil_running_as_root())
   {
-    die("vsftpd: must be started as root (see run_as_launching_user option)");
+    die(VSF_PROJECT ": must be started as root (see run_as_launching_user option)");
   }
 }
 
@@ -265,7 +267,7 @@ do_sanity_checks(void)
     vsf_sysutil_fstat(VSFTP_COMMAND_FD, &p_statbuf);
     if (!vsf_sysutil_statbuf_is_socket(p_statbuf))
     {
-      die("vsftpd: not configured for standalone, must be started from inetd");
+      die(VSF_PROJECT ": not configured for standalone, must be started from inetd");
     }
     vsf_sysutil_free(p_statbuf);
   }
@@ -273,24 +275,24 @@ do_sanity_checks(void)
   {
     if (tunable_local_enable)
     {
-      die("vsftpd: security: 'one_process_model' is anonymous only");
+      die(VSF_PROJECT ": security: 'one_process_model' is anonymous only");
     }
     if (!vsf_sysdep_has_capabilities_as_non_root())
     {
-      die("vsftpd: security: 'one_process_model' needs a better OS");
+      die(VSF_PROJECT ": security: 'one_process_model' needs a better OS");
     }
   }
   if (!tunable_local_enable && !tunable_anonymous_enable)
   {
-    die("vsftpd: both local and anonymous access disabled!");
+    die(VSF_PROJECT ": both local and anonymous access disabled!");
   }
   if (!tunable_ftp_enable && !tunable_http_enable)
   {
-    die("vsftpd: both FTP and HTTP disabled!");
+    die(VSF_PROJECT ": both FTP and HTTP disabled!");
   }
   if (tunable_http_enable && !tunable_one_process_model)
   {
-    die("vsftpd: HTTP needs 'one_process_model' for now");
+    die(VSF_PROJECT ": HTTP needs 'one_process_model' for now");
   }
 }
 
@@ -333,7 +335,7 @@ session_init(struct vsf_session* p_sess)
       vsf_sysutil_getpwnam(tunable_ftp_username);
     if (p_user == 0)
     {
-      die2("vsftpd: cannot locate user specified in 'ftp_username':",
+      die2(VSF_PROJECT ": cannot locate user specified in 'ftp_username':",
            tunable_ftp_username);
     }
     p_sess->anon_ftp_uid = vsf_sysutil_user_getuid(p_user);
@@ -344,7 +346,7 @@ session_init(struct vsf_session* p_sess)
       vsf_sysutil_getpwnam(tunable_guest_username);
     if (p_user == 0)
     {
-      die2("vsftpd: cannot locate user specified in 'guest_username':",
+      die2(VSF_PROJECT ": cannot locate user specified in 'guest_username':",
            tunable_guest_username);
     }
     p_sess->guest_user_uid = vsf_sysutil_user_getuid(p_user);
@@ -355,7 +357,7 @@ session_init(struct vsf_session* p_sess)
       vsf_sysutil_getpwnam(tunable_chown_username);
     if (p_user == 0)
     {
-      die2("vsftpd: cannot locate user specified in 'chown_username':",
+      die2(VSF_PROJECT ": cannot locate user specified in 'chown_username':",
            tunable_chown_username);
     }
     p_sess->anon_upload_chown_uid = vsf_sysutil_user_getuid(p_user);

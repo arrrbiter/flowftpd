@@ -7,6 +7,7 @@
 
 #include "tunables.h"
 #include "sysutil.h"
+#include "vsftpver.h"
 
 int tunable_anonymous_enable;
 int tunable_local_enable;
@@ -260,15 +261,15 @@ tunables_load_defaults()
   install_str_setting("ftp", &tunable_ftp_username);
   install_str_setting("root", &tunable_chown_username);
   install_str_setting("/var/log/xferlog", &tunable_xferlog_file);
-  install_str_setting("/var/log/vsftpd.log", &tunable_vsftpd_log_file);
+  install_str_setting("/var/log/" VSF_PROJECT ".log", &tunable_vsftpd_log_file);
   install_str_setting(".message", &tunable_message_file);
   install_str_setting("nobody", &tunable_nopriv_user);
   install_str_setting(0, &tunable_ftpd_banner);
-  install_str_setting("/etc/vsftpd.banned_emails", &tunable_banned_email_file);
-  install_str_setting("/etc/vsftpd.chroot_list", &tunable_chroot_list_file);
+  install_str_setting("/etc/" VSF_PROJECT ".banned_emails", &tunable_banned_email_file);
+  install_str_setting("/etc/" VSF_PROJECT ".chroot_list", &tunable_chroot_list_file);
   install_str_setting("ftp", &tunable_pam_service_name);
   install_str_setting("ftp", &tunable_guest_username);
-  install_str_setting("/etc/vsftpd.user_list", &tunable_userlist_file);
+  install_str_setting("/etc/" VSF_PROJECT ".user_list", &tunable_userlist_file);
   install_str_setting(0, &tunable_anon_root);
   install_str_setting(0, &tunable_local_root);
   install_str_setting(0, &tunable_banner_file);
@@ -281,9 +282,9 @@ tunables_load_defaults()
   install_str_setting(0, &tunable_hide_file);
   install_str_setting(0, &tunable_deny_file);
   install_str_setting(0, &tunable_user_sub_token);
-  install_str_setting("/etc/vsftpd.email_passwords",
+  install_str_setting("/etc/" VSF_PROJECT ".email_passwords",
                       &tunable_email_password_file);
-  install_str_setting("/usr/share/ssl/certs/vsftpd.pem",
+  install_str_setting("/usr/share/ssl/certs/" VSF_PROJECT ".pem",
                       &tunable_rsa_cert_file);
   install_str_setting(0, &tunable_dsa_cert_file);
   install_str_setting("DES-CBC3-SHA", &tunable_ssl_ciphers);

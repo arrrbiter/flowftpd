@@ -476,7 +476,7 @@ Lars Hecking <lhecking@nmrc.ie>.
 <mgalgoci@redhat.com>.
 - Fix chown_upload bug noted by brett <beldridg@best.com>.
 - Add concept of guest user, idea from Andrew Anderson <andrew@redhat.com>.
-- Simple bandwidth limitation, inspired by Mads Martin Jørgensen
+- Simple bandwidth limitation, inspired by Mads Martin Jï¿½rgensen
 <mmj@suse.de>.
 - Fix chown_upload bug in a different way.
 - Correct *_umask details in vsftpd.conf.5, from brett <beldridg@best.com>.
@@ -588,7 +588,7 @@ At this point: 1.1.0 package released
 
 (Note - 1.1.0 also included large file (>2Gb) support).
 
-- Fix port_promiscuous, oops! Thanks to Bjørn-Ove Heimsund
+- Fix port_promiscuous, oops! Thanks to Bjï¿½rn-Ove Heimsund
 <bjornoh@mi.uib.no>.
 - Fix to support umasks which create executable files. Reported by
 "Martin, Andreas" <AMartin@hegau-klinikum.de>.
@@ -1045,7 +1045,7 @@ required.
 - More work on the inbuilt ptrace()-sandbox support.
 - Clear the idle alarm when starting data transfer if there is no data alarm.
 - Fix syslog format; don't embed 2nd copy of date, pid. Thanks to
-René Berber <r.berber@computer.org>.
+Renï¿½ Berber <r.berber@computer.org>.
 - Lock file before truncating it for upload. Fixes various simultaneous
 upload corruption issues.
 - Make sure to give 426 error code on uploads if ABOR was received.
@@ -1245,3 +1245,5 @@ At this point: v2.3.1 released!
 
 At this point: v2.3.2 released!
 ===============================
+
+- Forked to flowftpd

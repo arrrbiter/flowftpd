@@ -105,7 +105,7 @@ emit_greeting(struct vsf_session* p_sess)
   }
   else if (tunable_ftpd_banner == 0)
   {
-    vsf_cmdio_write(p_sess, FTP_GREET, "(vsFTPd " VSF_VERSION 
+    vsf_cmdio_write(p_sess, FTP_GREET, "(flowftpd " VSF_VERSION
                     ")");
   }
   else

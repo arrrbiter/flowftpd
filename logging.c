@@ -13,6 +13,7 @@
 #include "sysutil.h"
 #include "sysstr.h"
 #include "session.h"
+#include "vsftpver.h"
 
 /* File local functions */
 static int vsf_log_type_is_transfer(enum EVSFLogEntryType type);
@@ -56,7 +57,7 @@ vsf_log_init(struct vsf_session* p_sess)
                                                       0600);
       if (vsf_sysutil_retval_is_error(retval))
       {
-        die2("failed to open vsftpd log file:", tunable_vsftpd_log_file);
+        die2("failed to open " VSF_PROJECT " log file:", tunable_vsftpd_log_file);
       }
       p_sess->vsftpd_log_fd = retval;
     }

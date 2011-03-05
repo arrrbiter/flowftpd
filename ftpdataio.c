@@ -31,6 +31,7 @@
 #include "readwrite.h"
 #include "privsock.h"
 #include "crc32.h"
+#include "vsftpver.h"
 
 static void init_data_sock_params(struct vsf_session* p_sess, int sock_fd);
 static filesize_t calc_num_send(int file_fd, filesize_t init_offset);
@@ -177,7 +178,7 @@ vsf_ftpdataio_post_mark_connect(struct vsf_session* p_sess)
     {
       str_append_text(&s_err_msg, "; session reuse required");
       str_append_text(
-          &s_err_msg, ": see require_ssl_reuse option in vsftpd.conf man page");
+          &s_err_msg, ": see require_ssl_reuse option in " VSF_PROJECT ".conf man page");
     }
     vsf_cmdio_write_str(p_sess, FTP_DATATLSBAD, &s_err_msg);
   }

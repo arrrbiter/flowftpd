@@ -27,6 +27,7 @@
 #include "sysutil.h"
 #include "sysdeputil.h"
 #include "sslslave.h"
+#include "vsftpver.h"
 
 static void drop_all_privs(void);
 static void handle_sigchld(void* duff);
@@ -156,7 +157,7 @@ drop_all_privs(void)
     struct vsf_sysutil_statbuf* p_statbuf = 0;
     if (vsf_sysutil_retval_is_error(str_lstat(&dir_str, &p_statbuf)))
     {
-      die2("vsftpd: not found: directory given in 'secure_chroot_dir':",
+      die2(VSF_PROJECT ": not found: directory given in 'secure_chroot_dir':",
            tunable_secure_chroot_dir);
     }
     vsf_sysutil_free(p_statbuf);
@@ -441,7 +442,7 @@ common_do_login(struct vsf_session* p_sess, const struct mystr* p_user_str,
      */
     if (was_anon && vsf_sysutil_write_access("/"))
     {
-      die("vsftpd: refusing to run with writable anonymous root");
+      die(VSF_PROJECT ": refusing to run with writable anonymous root");
     }
     p_sess->is_anonymous = anon;
     process_post_login(p_sess);

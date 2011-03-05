@@ -11,6 +11,7 @@
 #include "builddefs.h"
 #include "utility.h"
 #include "sysutil.h"
+#include "vsftpver.h"
 
 #ifdef VSF_BUILD_TCPWRAPPERS
   #include <tcpd.h>
@@ -28,7 +29,7 @@ vsf_tcp_wrapper_ok(int remote_fd)
 {
   struct request_info req;
   vsf_sysutil_openlog(0);
-  request_init(&req, RQ_DAEMON, "vsftpd", RQ_FILE, remote_fd, 0);
+  request_init(&req, RQ_DAEMON, VSF_PROJECT, RQ_FILE, remote_fd, 0);
   fromhost(&req);
   if (!hosts_access(&req))
   {

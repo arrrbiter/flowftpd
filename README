@@ -1,8 +1,18 @@
 This is flowftpd, version 0.1 - a fork of vsftpd 2.3
 
-This intention of this fork is to add some advanced features to vsftpd which
-go beyond the scope of vsftpd which is primarily slanted toward security and
-anonymous download only servers.  
+The intention of this fork is to add some advanced features to vsftpd which
+go beyond the current scope of vsftpd which is primarily slanted toward 
+security and anonymous download-only servers.
+
+New features:
+- Improved OSX support
+- Added support for SSL protected FXP (site to site) transfers 
+  (SSCN and CPSV commands) 
+- On-the-fly CRC32 calculation
+
+
+Author: Arrrbiter
+Contact: arrrbiter@googlemail.com
 
 --------------------------------------------------------------------------------
 

@@ -1,2 +1,9 @@
+# Ignore local NetBeans files
 nbproject/private
 .dep.inc
+
+# Ignore objects and archives.
+*.[oa]
+
+# Ignore the binary
+flowftpd

@@ -1247,3 +1247,9 @@ At this point: v2.3.2 released!
 ===============================
 
 - Forked to flowftpd
+
+- Applied changes from vsftpd v2.3.4:
+  - Avoid consuming excessive CPU when matching filenames to patterns. Thanks to
+    Maksymilian Arciemowicz <cxib@securityreason.com>.
+  - Some bugfixes from RaphaÎl Rigo <raphael.rigo@syscall.eu> -- good bugs but
+    no apparent security impact.

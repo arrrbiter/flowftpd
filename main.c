@@ -273,6 +273,7 @@ do_sanity_checks(void)
   }
   if (tunable_one_process_model)
   {
+    /*
     if (tunable_local_enable)
     {
       die(VSF_PROJECT ": security: 'one_process_model' is anonymous only");
@@ -281,6 +282,7 @@ do_sanity_checks(void)
     {
       die(VSF_PROJECT ": security: 'one_process_model' needs a better OS");
     }
+    */
   }
   if (!tunable_local_enable && !tunable_anonymous_enable)
   {

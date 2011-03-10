@@ -7,3 +7,4 @@ nbproject/private
 
 # Ignore the binary
 flowftpd
+flowftpd.pid

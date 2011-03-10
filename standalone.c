@@ -19,6 +19,7 @@
 #include "str.h"
 #include "ipaddrparse.h"
 #include "vsftpver.h"
+#include "pid.h"
 
 static unsigned int s_children;
 static struct hash* s_p_ip_count_hash;
@@ -50,6 +51,11 @@ vsf_standalone_main(void)
     int forkret = vsf_sysutil_fork();
     if (forkret > 0)
     {
+      /* Parent, write pidfile (if nessesary) and exit. */
+      if (tunable_pid_file)
+      {
+        vsf_pid_write_pid_file(forkret);
+      }
       /* Parent, just exit */
       vsf_sysutil_exit(0);
     }

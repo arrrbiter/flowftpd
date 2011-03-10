@@ -146,6 +146,7 @@ extern const char* tunable_rsa_private_key_file;
 extern const char* tunable_dsa_private_key_file;
 extern const char* tunable_ca_certs_file;
 extern const char* tunable_cmds_denied;
+extern const char* tunable_pid_file;
 
 #endif /* VSF_TUNABLES_H */
 

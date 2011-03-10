@@ -957,6 +957,14 @@ encrypted connections.
 
 Default: /usr/share/ssl/certs/flowftpd.pem
 .TP
+.B pid_file
+This option has effect only if the
+.BR background
+is enabled. It writes the process ID of the running daemon to a file at the
+specified path.
+
+Default: (none) (no PID file is created)
+.TP
 .B rsa_private_key_file
 This option specifies the location of the RSA private key to use for SSL
 encrypted connections. If this option is not set, the private key is expected
